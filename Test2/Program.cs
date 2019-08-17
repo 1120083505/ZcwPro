@@ -1,30 +1,12 @@
-﻿using NewLife.Caching;
-using NewLife.Log;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using XCode.Code;
-using XCode.Membership;
+using NewLife.Caching;
+using NewLife.Log;
 
 namespace Test2
 {
     internal class Program
     {
-        public class UserInfo
-        {
-            public string Name { get; set; }
-            public string Age { get; set; }
-        }
-
-        public class TOKEN
-        {
-            public List<UserInfo> UserInfos { get; set; }
-            public int? UI { get; set; }
-            public DateTime? DT { get; set; }
-            //public string ? NAME { get; set; }
-        }
-
         private static void Main(string[] args)
         {
             //var squares = new List<int>() { 1, 2, 3, 4, 5, 6, 7 };
@@ -53,11 +35,11 @@ namespace Test2
             Console.WriteLine("共有缓存对象 {0} 个", ic.Count);
 
             ic.Set("name", "Test");
-            Console.WriteLine(ic.Get<String>("name"));
+            Console.WriteLine(ic.Get<string>("name"));
             ic.Set("Zcw", "ZYH");
             Console.WriteLine(ic.Get<string>("Zcw"));
 
-            UserInfo UI = new UserInfo();
+            var UI = new UserInfo();
             UI.Name = "LLLLL";
             UI.Age = "12";
 
@@ -84,10 +66,10 @@ namespace Test2
             //Console.WriteLine(dic["xxx"].ToFullString());
 
             // 队列
-            var mq = ic.GetQueue<String>("queue");
-            mq.Add(new[] { "abc", "g", "e", "m" });
+            var mq = ic.GetQueue<string>("queue");
+            mq.Add(new[] {"abc", "g", "e", "m"});
             var arr = mq.Take(3);
-            Console.WriteLine(arr.Join(","));
+            Console.WriteLine(arr.Join());
 
             //// 集合
             //var set = ic.GetSet<String>("sss");
@@ -98,6 +80,21 @@ namespace Test2
             //Console.WriteLine(set.Contains("xx2"));
 
             //Console.WriteLine("共有缓存对象 {0} 个", ic.Count);
+        }
+
+        public class UserInfo
+        {
+            public string Name { get; set; }
+            public string Age { get; set; }
+        }
+
+        public class TOKEN
+        {
+            public List<UserInfo> UserInfos { get; set; }
+            public int? UI { get; set; }
+
+            public DateTime? DT { get; set; }
+            //public string ? NAME { get; set; }
         }
     }
 }
